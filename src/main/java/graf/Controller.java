@@ -56,8 +56,6 @@ public class Controller {
     RadioButton wczytajgraf = new RadioButton();
     @FXML
     ToggleGroup toggleGroup = new ToggleGroup();
-    @FXML
-    public Canvas canvas;
 
     @FXML
     private int getXtext() {
@@ -287,8 +285,6 @@ public class Controller {
     {
         if(wczytajgraf.isSelected())
         {
-            GraphicsContext gc = canvas.getGraphicsContext2D();
-            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             xtext.setText("");
             ytext.setText("");
             mintext.setText("");
@@ -317,8 +313,6 @@ public class Controller {
     protected void onGenerujGrafRadioIsSelected() {
         if(generujgraf.isSelected())
         {
-            GraphicsContext gc = canvas.getGraphicsContext2D();
-            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             xtext.setText("");
             ytext.setText("");
             mintext.setText("");
