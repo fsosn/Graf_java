@@ -1,10 +1,16 @@
 package graf;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -50,6 +56,8 @@ public class Controller {
     RadioButton wczytajgraf = new RadioButton();
     @FXML
     ToggleGroup toggleGroup = new ToggleGroup();
+    @FXML
+    public Canvas canvas;
 
     @FXML
     private int getXtext() {
@@ -167,8 +175,17 @@ public class Controller {
                     Generate g  = new Generate();
                     g.generateGraph(x, y, min, max, n, output);
                     errorField.setText("Plik z grafem został zapisany w: " + output);
+
+                    Zoom z = new Zoom();
+                    z.start(new Stage(), x,y);
+
+
                 }
             });
+
+
+
+
         }
     }
 
@@ -270,6 +287,8 @@ public class Controller {
     {
         if(wczytajgraf.isSelected())
         {
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             xtext.setText("");
             ytext.setText("");
             mintext.setText("");
@@ -298,6 +317,8 @@ public class Controller {
     protected void onGenerujGrafRadioIsSelected() {
         if(generujgraf.isSelected())
         {
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             xtext.setText("");
             ytext.setText("");
             mintext.setText("");
@@ -320,5 +341,8 @@ public class Controller {
             intext.setEditable(false);
         }
     }
+
+
+
 
 }
