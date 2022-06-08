@@ -209,7 +209,7 @@ public class Controller {
             }
 
             assert filename != null;
-            if(!filename.trim().equals("") && ps>=0 && ps<pk)
+            if(!filename.trim().equals("") && ps>=0 && pk>=0)
             {
                 ShortestPath shortestPath = new ShortestPath();
                 try
@@ -242,7 +242,7 @@ public class Controller {
 
             assert filename != null;
 
-            if(!filename.trim().equals("") && !(xtext.getText()).trim().equals("") && !(ytext.getText()).trim().equals(""))
+            if(!filename.trim().equals(""))
             {
                 Connectivity check = new Connectivity();
                 try
@@ -273,7 +273,6 @@ public class Controller {
                     wczytaj.setOnAction(e -> {
                         pathValueField.setText("");
                         connectivityStatusField.setText("");
-                        System.out.println(absolutePath);
                     });
                 }
             }
