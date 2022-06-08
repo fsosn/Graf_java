@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class ShortestPath extends FromFile
 {
-    public double getShortestPath(String filename, int ps, int pk) throws FileNotFoundException
+    public ArrayList<Number> getShortestPath(String filename, int ps, int pk) throws FileNotFoundException
     {
         int arrayLenght = numOfLinks(filename);
 

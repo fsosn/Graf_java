@@ -1,4 +1,4 @@
-module com.example.test {
+module graf {
     requires javafx.controls;
     requires javafx.fxml;
 

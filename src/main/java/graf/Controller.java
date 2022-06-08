@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class Controller {
     @FXML
@@ -214,8 +215,8 @@ public class Controller {
                 ShortestPath shortestPath = new ShortestPath();
                 try
                 {
-                    double value = shortestPath.getShortestPath(filename, ps, pk);
-                    pathValueField.setText(String.valueOf(value));
+                    ArrayList<Number> pathInfo = shortestPath.getShortestPath(filename, ps, pk);
+                    pathValueField.setText(String.valueOf(pathInfo.get(0)));
                 }
                 catch (FileNotFoundException ex)
                 {
