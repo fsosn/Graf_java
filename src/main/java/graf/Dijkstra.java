@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 
 public class Dijkstra {
 
-    static class AdjacencyList
+    public static class AdjacencyList
     {
         int vertex; //wierzchołek
         double weight; //waga przejścia między wierzchołkami
