@@ -2,7 +2,7 @@ package graf;
 
 public class IncidenceMatrix {
 
-    int CountElements(int x, int y) {
+    public int CountElements(int x, int y) {
         int n = x * y;
         int i;
         int j = 0;
@@ -84,7 +84,7 @@ public class IncidenceMatrix {
         return NonZeroElements;
     }
 
-    void FillArrays(int x, int y, double[] value, int[] row, int[] column) {
+    public void FillArrays(int x, int y, double[] value, int[] row, int[] column) {
         int n = x * y;
         int k = 1;
         int q = 1;

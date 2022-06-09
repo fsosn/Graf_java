@@ -8,7 +8,7 @@ public class MatrixValues {
         return (new Random().nextDouble() * (max - min)) + min;
     }
 
-    void RandomizeMatrixValues(double min, double max, double[] value, int[] row, int[] column) {
+    public void RandomizeMatrixValues(double min, double max, double[] value, int[] row, int[] column) {
         double newValue;
         int currentRow;
         int currentColumn;

@@ -17,7 +17,7 @@ class BreadthFirstSearch {
     }
 
     // dodanie pojedynczej krawędzi
-    void addEdge(int v, int w)
+    private void addEdge(int v, int w)
     {
         adj[v].add(w);
     }
