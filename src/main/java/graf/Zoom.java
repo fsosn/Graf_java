@@ -113,32 +113,32 @@ class NodeGestures {
     }
 
 
-        public EventHandler<MouseEvent> getOnMousePressedEventHandler () {
+    public EventHandler<MouseEvent> getOnMousePressedEventHandler () {
         return onMousePressedEventHandler;
     }
 
 
-        private EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() {
+    private EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() {
 
 
-            public void handle(MouseEvent event) {
+        public void handle(MouseEvent event) {
 
-                if (!event.isPrimaryButtonDown())
-                    return;
+            if (!event.isPrimaryButtonDown())
+                return;
 
-                nodeDragContext.mouseAnchorX = event.getSceneX();
-                nodeDragContext.mouseAnchorY = event.getSceneY();
+            nodeDragContext.mouseAnchorX = event.getSceneX();
+            nodeDragContext.mouseAnchorY = event.getSceneY();
 
-                Node node = (Node) event.getSource();
-                //((Shape) node).setFill(Color.RED);
-                nodeDragContext.translateAnchorX = node.getTranslateX();
-                nodeDragContext.translateAnchorY = node.getTranslateY();
-                v++;
+            Node node = (Node) event.getSource();
+            //((Shape) node).setFill(Color.RED);
+            nodeDragContext.translateAnchorX = node.getTranslateX();
+            nodeDragContext.translateAnchorY = node.getTranslateY();
+            v++;
 
-            }
+        }
 
 
-        };
+    };
 
 
     private EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
@@ -418,7 +418,7 @@ public class Zoom extends Application{
         for (int i = 1; i < pathinfo.size(); i++) {
             circArray[(int) pathinfo.get(i)].setFill(Color.RED);
         }
-       System.out.println(pathinfo.size());
+        System.out.println(pathinfo.size());
         System.out.println(pathinfo);
 
 
@@ -564,7 +564,7 @@ public class Zoom extends Application{
                 }
             }
         }
-      //  System.out.println(V);
+        //  System.out.println(V);
 
         canvas.getChildren().addAll(lineArray1);
         canvas.getChildren().addAll(lineArray2);
