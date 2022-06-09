@@ -19,6 +19,9 @@ import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 class PannableCanvas extends Pane {
 
     DoubleProperty myScale = new SimpleDoubleProperty(1.0);
@@ -35,9 +38,7 @@ class PannableCanvas extends Pane {
         scaleYProperty().bind(myScale);
     }
 
-    /**
-     * Add a grid to the canvas, send it to back
-     */
+
     public void addGrid() {
 
         double w = getBoundsInLocal().getWidth();
@@ -81,9 +82,6 @@ class PannableCanvas extends Pane {
 }
 
 
-/**
- * Mouse drag context used for scene and nodes.
- */
 class DragContext {
 
     double mouseAnchorX;
@@ -94,10 +92,11 @@ class DragContext {
 
 }
 
-/**
- * Listeners for making the nodes draggable via left mouse button. Considers if parent is zoomed.
- */
+
 class NodeGestures {
+
+    Integer v=0;
+
 
     private DragContext nodeDragContext = new DragContext();
 
@@ -108,34 +107,39 @@ class NodeGestures {
 
     }
 
-    public EventHandler<MouseEvent> getOnMousePressedEventHandler() {
-        return onMousePressedEventHandler;
-    }
 
     public EventHandler<MouseEvent> getOnMouseDraggedEventHandler() {
         return onMouseDraggedEventHandler;
     }
 
-    private EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() {
 
-        public void handle(MouseEvent event) {
+        public EventHandler<MouseEvent> getOnMousePressedEventHandler () {
+        return onMousePressedEventHandler;
+    }
 
-            // left mouse button => dragging
-            if( !event.isPrimaryButtonDown())
-                return;
 
-            nodeDragContext.mouseAnchorX = event.getSceneX();
-            nodeDragContext.mouseAnchorY = event.getSceneY();
+        private EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() {
 
-            Node node = (Node) event.getSource();
 
-            ((Shape) node).setFill(Color.RED);
-            nodeDragContext.translateAnchorX = node.getTranslateX();
-            nodeDragContext.translateAnchorY = node.getTranslateY();
+            public void handle(MouseEvent event) {
 
-        }
+                if (!event.isPrimaryButtonDown())
+                    return;
 
-    };
+                nodeDragContext.mouseAnchorX = event.getSceneX();
+                nodeDragContext.mouseAnchorY = event.getSceneY();
+
+                Node node = (Node) event.getSource();
+                //((Shape) node).setFill(Color.RED);
+                nodeDragContext.translateAnchorX = node.getTranslateX();
+                nodeDragContext.translateAnchorY = node.getTranslateY();
+                v++;
+
+            }
+
+
+        };
+
 
     private EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
@@ -156,9 +160,7 @@ class NodeGestures {
     };
 }
 
-/**
- * Listeners for making the scene's canvas draggable and zoomable
- */
+
 class SceneGestures {
 
     private static final double MAX_SCALE = 1000.0d;
@@ -205,7 +207,7 @@ class SceneGestures {
     private EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
 
-            // right mouse button => panning
+
             if( !event.isSecondaryButtonDown())
                 return;
 
@@ -216,9 +218,7 @@ class SceneGestures {
         }
     };
 
-    /**
-     * Mouse wheel handler: zoom to pivot point
-     */
+
     private EventHandler<ScrollEvent> onScrollEventHandler = new EventHandler<ScrollEvent>() {
 
         @Override
@@ -226,7 +226,7 @@ class SceneGestures {
 
             double delta = 1.2;
 
-            double scale = canvas.getScale(); // currently we only use Y, same value is used for X
+            double scale = canvas.getScale();
             double oldScale = scale;
 
             if (event.getDeltaY() < 0)
@@ -243,7 +243,7 @@ class SceneGestures {
 
             canvas.setScale( scale);
 
-            // note: pivot value must be untransformed, i. e. without scaling
+
             canvas.setPivot(f*dx, f*dy);
 
             event.consume();
@@ -267,9 +267,7 @@ class SceneGestures {
 
 
 
-/**
- * An application with a zoomable and pannable canvas.
- */
+
 public class Zoom extends Application{
 
     public static void main(String[] args) {
@@ -282,7 +280,11 @@ public class Zoom extends Application{
     int x = 100;
     int y = 150;
 
-    public void start(Stage stage,int x ,int y) {
+    public void start(Stage stage,int x ,int y, int ps, int pk,String filename) throws FileNotFoundException {
+
+        ShortestPath sp = new ShortestPath();
+        ArrayList<Number> pathinfo = sp.getShortestPath(filename, ps, pk);
+
 
         int n = x*y;
 
@@ -298,15 +300,15 @@ public class Zoom extends Application{
 
         Group group = new Group();
 
-        // create canvas
+
         PannableCanvas canvas = new PannableCanvas();
 
-        // we don't want the canvas on the top/left in this example => just
-        // translate it a bit
+
+
         canvas.setTranslateX(0);
         canvas.setTranslateY(0);
 
-        // create sample nodes which can be dragged
+
         NodeGestures nodeGestures = new NodeGestures( canvas);
 
         if(xd>yd){
@@ -350,7 +352,7 @@ public class Zoom extends Application{
             k=0;
             for(int i = 0; i<y; i++) {
                 for(int j =0;j<x;j++){
-                    circArray[k] = new Circle();//Adding this line to prevent NPE on circArray[i]
+                    circArray[k] = new Circle();
                     circArray[k].setRadius(Math.sqrt(((((X-60)*(Y-60))/(x*y)*0.66*skala)/3.15)));
                     circArray[k].setCenterX(30 + (X-60)/(x-1)*j);
                     circArray[k].setCenterY(30 + (Y-60)/(y-1)*i);
@@ -394,7 +396,7 @@ public class Zoom extends Application{
             k=0;
             for(int i = 0; i<y; i++) {
                 for(int j =0;j<x;j++){
-                    circArray[k] = new Circle();//Adding this line to prevent NPE on circArray[i]
+                    circArray[k] = new Circle();
                     if(y==1){
                         circArray[k].setRadius(Math.sqrt(((((X-60)*(Y-60))/(x*y))/3.15))/(x));
                         circArray[k].setCenterX(30 + (X-60)/(x)*j);
@@ -411,10 +413,14 @@ public class Zoom extends Application{
 
                 }
             }
-
-
-
         }
+
+        for (int i = 1; i < pathinfo.size(); i++) {
+            circArray[(int) pathinfo.get(i)].setFill(Color.RED);
+        }
+       System.out.println(pathinfo.size());
+        System.out.println(pathinfo);
+
 
         canvas.getChildren().addAll(lineArray1);
         canvas.getChildren().addAll(lineArray2);
@@ -422,7 +428,7 @@ public class Zoom extends Application{
 
         group.getChildren().add(canvas);
 
-        // create scene which can be dragged and zoomed
+
         Scene scene = new Scene(group, 460, 583);
 
         SceneGestures sceneGestures = new SceneGestures(canvas);
@@ -454,15 +460,14 @@ public class Zoom extends Application{
 
         Group group = new Group();
 
-        // create canvas
+
         PannableCanvas canvas = new PannableCanvas();
 
-        // we don't want the canvas on the top/left in this example => just
-        // translate it a bit
+
         canvas.setTranslateX(100);
         canvas.setTranslateY(100);
 
-        // create sample nodes which can be dragged
+
         NodeGestures nodeGestures = new NodeGestures( canvas);
 
         if(xd>yd){
@@ -478,7 +483,7 @@ public class Zoom extends Application{
         if(x*y>x && x*y>y){
             for(int i = 0; i<y; i++) {
                 for(int j =0;j<x;j++){
-                    circArray[k] = new Circle();//Adding this line to prevent NPE on circArray[i]
+                    circArray[k] = new Circle();
                     circArray[k].setRadius(Math.sqrt(((((X-60)*(Y-60))/(x*y)*0.66*skala)/3.15)));
                     circArray[k].setCenterX(30 + (X-60)/(x-1)*j);
                     circArray[k].setCenterY(30 + (Y-60)/(y-1)*i);
@@ -517,7 +522,7 @@ public class Zoom extends Application{
         else{
             for(int i = 0; i<y; i++) {
                 for(int j =0;j<x;j++){
-                    circArray[k] = new Circle();//Adding this line to prevent NPE on circArray[i]
+                    circArray[k] = new Circle();
                     if(y==1){
                         circArray[k].setRadius(Math.sqrt(((((X-60)*(Y-60))/(x*y))/3.15))/(x));
                         circArray[k].setCenterX(30 + (X-60)/(x)*j);
@@ -559,6 +564,7 @@ public class Zoom extends Application{
                 }
             }
         }
+      //  System.out.println(V);
 
         canvas.getChildren().addAll(lineArray1);
         canvas.getChildren().addAll(lineArray2);
@@ -566,7 +572,7 @@ public class Zoom extends Application{
 
         group.getChildren().add(canvas);
 
-        // create scene which can be dragged and zoomed
+
         Scene scene = new Scene(group, 460, 583);
 
         SceneGestures sceneGestures = new SceneGestures(canvas);

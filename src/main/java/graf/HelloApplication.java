@@ -2,10 +2,16 @@ package graf;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.SubScene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.security.cert.PolicyNode;
 
 public class HelloApplication extends Application {
     @Override
@@ -15,6 +21,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Graf");
         stage.setScene(scene);
         stage.show();
+
 
 
     }

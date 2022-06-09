@@ -147,11 +147,16 @@ public class Controller {
     {
         if(generujgraf.isSelected()) {
             generuj.setOnAction(e -> {
+                String path = getOutputText();
+                File file = new File(path);
+                String absolutePath = file.getAbsolutePath();
                 int x = getXtext();
                 int y = getYtext();
                 double min = getmintext();
                 double max = getMaxText();
                 int n = getNText();
+                int ps = getPStext();
+                int pk = getPKtext();
                 String output = getOutputText();
 
                 if (max < 0 || max > 1) {
@@ -175,8 +180,14 @@ public class Controller {
                     g.generateGraph(x, y, min, max, n, output);
                     errorField.setText("Plik z grafem został zapisany w: " + output);
 
-                    Zoom z = new Zoom();
-                    z.start(new Stage(), x,y);
+                                    Zoom z = new Zoom();
+                                    try {
+                                        z.start(new Stage(), x,y,ps,pk,path);
+                                    } catch (FileNotFoundException ex) {
+                                        throw new RuntimeException(ex);
+                                    }
+
+                                    pstext.setText(""+10);
 
 
                 }
@@ -264,6 +275,8 @@ public class Controller {
         String path = getInputText();
         File file = new File(path);
         String absolutePath = file.getAbsolutePath();
+        int ps = getPStext();
+        int pk = getPKtext();
 
         FromFile check = new FromFile();
         if(wczytajgraf.isSelected()) {
@@ -274,6 +287,12 @@ public class Controller {
                     wczytaj.setOnAction(e -> {
                         pathValueField.setText("");
                         connectivityStatusField.setText("");
+                        Zoomv2 z = new Zoomv2();
+                        try {
+                            z.start1(new Stage(),path,ps,pk);
+                        } catch (FileNotFoundException ex) {
+                            throw new RuntimeException(ex);
+                        }
                     });
                 }
             }
