@@ -29,6 +29,7 @@ public class TestFileFormat {
     public void testReadX() throws FileNotFoundException {
         assertEquals(5, ff.readX(absolutePath1));
     }
+
     @Test
     public void testReadY() throws FileNotFoundException {
         assertEquals(5, ff.readY(absolutePath1));

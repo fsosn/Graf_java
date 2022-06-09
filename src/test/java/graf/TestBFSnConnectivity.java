@@ -24,5 +24,4 @@ class TestBFSnConnectivity
     public void testBFS_Split() throws FileNotFoundException {
         assertNotEquals("Graf jest spójny", c.CheckConnectivity(absolutePath2, 1));
     }
-
 }
