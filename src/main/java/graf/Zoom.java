@@ -444,10 +444,10 @@ public class Zoom extends Application{
     public void start(Stage stage) throws Exception {
 
 
-        int n = x*y;
+        int n = x * y;
         Circle[] circArray = new Circle[n];
-        Line[] lineArray1 = new Line[n-y];
-        Line[] lineArray2 = new Line[n-x];
+        Line[] lineArray1 = new Line[n - y];
+        Line[] lineArray2 = new Line[n - x];
         Text text = new Text();
 
         int k = 0;
@@ -465,98 +465,93 @@ public class Zoom extends Application{
         canvas.setTranslateY(100);
 
 
-        NodeGestures nodeGestures = new NodeGestures( canvas);
+        NodeGestures nodeGestures = new NodeGestures(canvas);
 
-        if(xd>yd){
-            skala=yd/xd;
-        }
-        else if(yd>xd){
-            skala=xd/yd;
-        }
-        else{
-            skala=1;
+        if (xd > yd) {
+            skala = yd / xd;
+        } else if (yd > xd) {
+            skala = xd / yd;
+        } else {
+            skala = 1;
         }
 
-        if(x*y>x && x*y>y){
-            for(int i = 0; i<y; i++) {
-                for(int j =0;j<x;j++){
+        if (x * y > x && x * y > y) {
+            for (int i = 0; i < y; i++) {
+                for (int j = 0; j < x; j++) {
                     circArray[k] = new Circle();
-                    circArray[k].setRadius(Math.sqrt(((((X-60)*(Y-60))/(x*y)*0.66*skala)/3.15)));
-                    circArray[k].setCenterX(30 + (X-60)/(x-1)*j);
-                    circArray[k].setCenterY(30 + (Y-60)/(y-1)*i);
+                    circArray[k].setRadius(Math.sqrt(((((X - 60) * (Y - 60)) / (x * y) * 0.66 * skala) / 3.15)));
+                    circArray[k].setCenterX(30 + (X - 60) / (x - 1) * j);
+                    circArray[k].setCenterY(30 + (Y - 60) / (y - 1) * i);
                     circArray[k].setFill(Color.GREEN);
-                    circArray[k].addEventFilter( MouseEvent.MOUSE_PRESSED, nodeGestures.getOnMousePressedEventHandler());
+                    circArray[k].addEventFilter(MouseEvent.MOUSE_PRESSED, nodeGestures.getOnMousePressedEventHandler());
                     k++;
 
                 }
             }
-            k=0;
-            for(int i = 0; i<x-1; i++) {
-                for(int j =0;j<y;j++){
+            k = 0;
+            for (int i = 0; i < x - 1; i++) {
+                for (int j = 0; j < y; j++) {
                     lineArray1[k] = new Line();
-                    lineArray1[k].setStrokeWidth(Math.sqrt(((((X-60)*(Y-60))/(x*y)*0.66)/3.15))/20);
-                    lineArray1[k].setStartX(30+(X-60)/(x-1)*i);
-                    lineArray1[k].setStartY(30 + (Y-60)/(y-1)*j);
-                    lineArray1[k].setEndX(30 + (X-60)/(x-1) +(X-60)/(x-1)*i);
-                    lineArray1[k].setEndY(30 + (Y-60)/(y-1)*j);
+                    lineArray1[k].setStrokeWidth(Math.sqrt(((((X - 60) * (Y - 60)) / (x * y) * 0.66) / 3.15)) / 20);
+                    lineArray1[k].setStartX(30 + (X - 60) / (x - 1) * i);
+                    lineArray1[k].setStartY(30 + (Y - 60) / (y - 1) * j);
+                    lineArray1[k].setEndX(30 + (X - 60) / (x - 1) + (X - 60) / (x - 1) * i);
+                    lineArray1[k].setEndY(30 + (Y - 60) / (y - 1) * j);
                     k++;
                 }
             }
-            k=0;
-            for(int i = 0; i<x; i++) {
-                for(int j =0;j<y-1;j++){
+            k = 0;
+            for (int i = 0; i < x; i++) {
+                for (int j = 0; j < y - 1; j++) {
                     lineArray2[k] = new Line();
-                    lineArray2[k].setStrokeWidth(Math.sqrt(((((X-60)*(Y-60))/(x*y)*0.66)/3.15))/20);
-                    lineArray2[k].setStartX(30 + (X-60)/(x-1)*i);
-                    lineArray2[k].setStartY(30+(Y-60)/(y-1)*j);
-                    lineArray2[k].setEndX(30 + (X-60)/(x-1)*i);
-                    lineArray2[k].setEndY(30 + (Y-60)/(y-1) +(Y-60)/(y-1)*j);
+                    lineArray2[k].setStrokeWidth(Math.sqrt(((((X - 60) * (Y - 60)) / (x * y) * 0.66) / 3.15)) / 20);
+                    lineArray2[k].setStartX(30 + (X - 60) / (x - 1) * i);
+                    lineArray2[k].setStartY(30 + (Y - 60) / (y - 1) * j);
+                    lineArray2[k].setEndX(30 + (X - 60) / (x - 1) * i);
+                    lineArray2[k].setEndY(30 + (Y - 60) / (y - 1) + (Y - 60) / (y - 1) * j);
                     k++;
                 }
             }
-        }
-
-        else{
-            for(int i = 0; i<y; i++) {
-                for(int j =0;j<x;j++){
+        } else {
+            for (int i = 0; i < y; i++) {
+                for (int j = 0; j < x; j++) {
                     circArray[k] = new Circle();
-                    if(y==1){
-                        circArray[k].setRadius(Math.sqrt(((((X-60)*(Y-60))/(x*y))/3.15))/(x));
-                        circArray[k].setCenterX(30 + (X-60)/(x)*j);
-                        circArray[k].setCenterY(Y/2 + (Y-60)/(y)*i);
-                    }
-                    else if(x==1){
-                        circArray[k].setRadius(Math.sqrt(((((X-60)*(Y-60))/(x*y))/3.15))/(y));
-                        circArray[k].setCenterX(X/2 + (X-60)/(x)*j);
-                        circArray[k].setCenterY(30 + (Y-60)/(y)*i);
+                    if (y == 1) {
+                        circArray[k].setRadius(Math.sqrt(((((X - 60) * (Y - 60)) / (x * y)) / 3.15)) / (x));
+                        circArray[k].setCenterX(30 + (X - 60) / (x) * j);
+                        circArray[k].setCenterY(Y / 2 + (Y - 60) / (y) * i);
+                    } else if (x == 1) {
+                        circArray[k].setRadius(Math.sqrt(((((X - 60) * (Y - 60)) / (x * y)) / 3.15)) / (y));
+                        circArray[k].setCenterX(X / 2 + (X - 60) / (x) * j);
+                        circArray[k].setCenterY(30 + (Y - 60) / (y) * i);
                     }
                     circArray[k].setFill(Color.GREEN);
-                    circArray[k].addEventFilter( MouseEvent.MOUSE_PRESSED, nodeGestures.getOnMousePressedEventHandler());
+                    circArray[k].addEventFilter(MouseEvent.MOUSE_PRESSED, nodeGestures.getOnMousePressedEventHandler());
                     k++;
 
                 }
             }
-            k=0;
-            for(int i = 0; i<x-1; i++) {
-                for(int j =0;j<y;j++){
+            k = 0;
+            for (int i = 0; i < x - 1; i++) {
+                for (int j = 0; j < y; j++) {
                     lineArray1[k] = new Line();
-                    lineArray1[k].setStrokeWidth(Math.sqrt(((((X-60)*(Y-60))/(x*y)*0.66)/3.15))/20);
-                    lineArray1[k].setStartX(30 + (X-60)/(x)*i);
-                    lineArray1[k].setStartY(Y/2 + (Y-60)/(y)*j);
-                    lineArray1[k].setEndX(30 + (X-60)/(x) +(X-60)/(x)*i);
-                    lineArray1[k].setEndY(Y/2 + (Y-60)/(y)*j);
+                    lineArray1[k].setStrokeWidth(Math.sqrt(((((X - 60) * (Y - 60)) / (x * y) * 0.66) / 3.15)) / 20);
+                    lineArray1[k].setStartX(30 + (X - 60) / (x) * i);
+                    lineArray1[k].setStartY(Y / 2 + (Y - 60) / (y) * j);
+                    lineArray1[k].setEndX(30 + (X - 60) / (x) + (X - 60) / (x) * i);
+                    lineArray1[k].setEndY(Y / 2 + (Y - 60) / (y) * j);
                     k++;
                 }
             }
-            k=0;
-            for(int i = 0; i<x; i++) {
-                for(int j =0;j<y-1;j++){
+            k = 0;
+            for (int i = 0; i < x; i++) {
+                for (int j = 0; j < y - 1; j++) {
                     lineArray2[k] = new Line();
-                    lineArray2[k].setStrokeWidth(Math.sqrt(((((X-60)*(Y-60))/(x*y)*0.66)/3.15))/20);
-                    lineArray2[k].setStartX(X/2 + (X-60)/(x)*i);
-                    lineArray2[k].setStartY(30+(Y-60)/(y)*j);
-                    lineArray2[k].setEndX(X/2 + (X-60)/(x)*i);
-                    lineArray2[k].setEndY(30 + (Y-60)/(y) +(Y-60)/(y)*j);
+                    lineArray2[k].setStrokeWidth(Math.sqrt(((((X - 60) * (Y - 60)) / (x * y) * 0.66) / 3.15)) / 20);
+                    lineArray2[k].setStartX(X / 2 + (X - 60) / (x) * i);
+                    lineArray2[k].setStartY(30 + (Y - 60) / (y) * j);
+                    lineArray2[k].setEndX(X / 2 + (X - 60) / (x) * i);
+                    lineArray2[k].setEndY(30 + (Y - 60) / (y) + (Y - 60) / (y) * j);
                     k++;
                 }
             }
@@ -573,9 +568,9 @@ public class Zoom extends Application{
         Scene scene = new Scene(group, 460, 583);
 
         SceneGestures sceneGestures = new SceneGestures(canvas);
-        scene.addEventFilter( MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
-        scene.addEventFilter( MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
-        scene.addEventFilter( ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
+        scene.addEventFilter(MouseEvent.MOUSE_PRESSED, sceneGestures.getOnMousePressedEventHandler());
+        scene.addEventFilter(MouseEvent.MOUSE_DRAGGED, sceneGestures.getOnMouseDraggedEventHandler());
+        scene.addEventFilter(ScrollEvent.ANY, sceneGestures.getOnScrollEventHandler());
 
         stage.setScene(scene);
         stage.show();
