@@ -95,6 +95,7 @@ class DragContext {
 
 class NodeGestures {
 
+    Integer v=0;
 
 
     private DragContext nodeDragContext = new DragContext();
@@ -132,6 +133,7 @@ class NodeGestures {
             //((Shape) node).setFill(Color.RED);
             nodeDragContext.translateAnchorX = node.getTranslateX();
             nodeDragContext.translateAnchorY = node.getTranslateY();
+            v++;
 
         }
 
@@ -413,7 +415,7 @@ public class Zoom extends Application{
             }
         }
 
-        for (int i = 1; i > pathinfo.size(); i++) {
+        for (int i = 1; i < pathinfo.size(); i++) {
             circArray[(int) pathinfo.get(i)].setFill(Color.RED);
         }
 
