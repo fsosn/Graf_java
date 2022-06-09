@@ -95,7 +95,6 @@ class DragContext {
 
 class NodeGestures {
 
-    Integer v=0;
 
 
     private DragContext nodeDragContext = new DragContext();
@@ -133,7 +132,6 @@ class NodeGestures {
             //((Shape) node).setFill(Color.RED);
             nodeDragContext.translateAnchorX = node.getTranslateX();
             nodeDragContext.translateAnchorY = node.getTranslateY();
-            v++;
 
         }
 
