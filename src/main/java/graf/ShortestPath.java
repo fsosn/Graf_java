@@ -3,19 +3,20 @@ package graf;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public class ShortestPath extends FromFile
+public class ShortestPath
 {
     public ArrayList<Number> getShortestPath(String filename, int ps, int pk) throws FileNotFoundException
     {
-        int arrayLenght = numOfLinks(filename);
+        FromFile ff = new FromFile();
+        int arrayLenght = ff.numOfLinks(filename);
 
         double[] value = new double[arrayLenght];
         int[] row = new int[arrayLenght];
         int[] column = new int[arrayLenght];
 
-        reader(filename, value, row, column);
+        ff.reader(filename, value, row, column);
 
-        int n = readX(filename) * readY(filename);
+        int n = ff.readX(filename) * ff.readY(filename);
 
         if(pk == -1)
             pk = n-1;
