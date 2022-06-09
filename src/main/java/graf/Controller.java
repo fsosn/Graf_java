@@ -180,7 +180,6 @@ public class Controller {
                                         throw new RuntimeException(ex);
                                     }
 
-                                    pstext.setText(""+10);
 
 
                 }

@@ -415,7 +415,7 @@ public class Zoom extends Application{
             }
         }
 
-        for (int i = 1; i < pathinfo.size(); i++) {
+        for (int i = 1; i > pathinfo.size(); i++) {
             circArray[(int) pathinfo.get(i)].setFill(Color.RED);
         }
         System.out.println(pathinfo.size());
